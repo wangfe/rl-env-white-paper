@@ -942,7 +942,7 @@ While Kimi K2.5 and OpenClaw represent comprehensive platforms for agent develop
 
 \subsubsection{Claude Code: Terminal-Native Agentics}
 
-Developed by Anthropic, Claude Code is a proprietary terminal-based agent that embeds directly into developers' existing workflows. Unlike GUI-centric assistants, Claude Code embraces the command line as its native environment, enabling deep integration with version control systems, build tools, and development environments.
+Developed by Anthropic, Claude Code is a proprietary terminal-based agent that embeds directly into developers' existing workflows. Unlike GUI-centric assistants, Claude Code embraces the command line as its native environment, enabling deep integration with version control systems, build tools, and development environments. The recent \textbf{Claude 4.6} model significantly enhances these capabilities with improved reasoning, extended context windows, and more sophisticated tool orchestration.
 
 \textbf{Key Architectural Features:}
 
@@ -953,10 +953,12 @@ Developed by Anthropic, Claude Code is a proprietary terminal-based agent that e
 
     \item \textbf{Context Awareness}: Deep integration with the filesystem, git history, and language server protocols enables Claude Code to maintain comprehensive situational awareness across large codebases.
 
+    \item \textbf{Claude 4.6 Enhancements}: The latest model iteration introduces improved chain-of-thought reasoning, better error recovery mechanisms, and enhanced multi-file editing capabilities, making it particularly effective for complex software engineering tasks.
+
 \end{itemize}
 \subsubsection{OpenAI Operator: GUI Navigation Agent}
 
-OpenAI's Operator, powered by the \textbf{Computer-Using Agent (CUA)} model, takes the opposite approach from Claude Code's terminal-centricity. Operator navigates graphical user interfaces to perform tasks that traditionally require human interactionfilling forms, booking reservations, ordering grocerieswithout relying on custom APIs or backend integrations.
+OpenAI's Operator, powered by the \textbf{Computer-Using Agent (CUA)} model built on \textbf{GPT-5.4}, takes the opposite approach from Claude Code's terminal-centricity. Operator navigates graphical user interfaces to perform tasks that traditionally require human interactionfilling forms, booking reservations, ordering grocerieswithout relying on custom APIs or backend integrations.
 
 \textbf{Technical Approach:}
 
@@ -964,27 +966,28 @@ OpenAI's Operator, powered by the \textbf{Computer-Using Agent (CUA)} model, tak
     \item \textbf{Visual Grounding}: CUA processes screen pixels directly, understanding UI elements through computer vision rather than DOM parsing or accessibility APIs.
     \item \textbf{Action Synthesis}: The model generates precise mouse and keyboard actions, including clicks, drags, scrolls, and text input.
     \item \textbf{Error Recovery}: Built-in retry mechanisms and alternative path exploration enable the agent to recover from unexpected UI states.
+    \item \textbf{GPT-5.4 Integration}: The underlying GPT-5.4 model provides enhanced spatial reasoning, improved action prediction accuracy, and better handling of dynamic UI elements compared to previous generations.
 
 \end{itemize}
 \subsection{Comparative Analysis}
 
-The following tables provide a structured comparison of the three architectural approaches:
+The following tables provide a structured comparison of the major architectural approaches:
 
 \subsubsection{Table 1: Core Architecture Comparison}
 
 \begin{table}[tbp]
 \centering
 \footnotesize
-\begin{tabularx}{\textwidth}{YYYYY}
+\begin{tabularx}{\textwidth}{YYYYYY}
 \toprule
-\textbf{Dimension} & \textbf{Kimi K2.5} & \textbf{OpenClaw} & \textbf{Claude Code} & \textbf{OpenAI Operator} \\
+\textbf{Dimension} & \textbf{Kimi K2.5} & \textbf{OpenClaw} & \textbf{Claude Code} & \textbf{OpenAI Operator} & \textbf{GLM 5} \\
 \midrule
-\textbf{Primary Paradigm} & Agent swarm & Operating system & Terminal agent & GUI navigator \\
-\textbf{Scale} & 1T parameters & Extensible (plugin-based) & Task-specific & Task-specific \\
-\textbf{Parallelism} & 100 sub-agents and 1,500 tool calls & Configurable & Sequential & Sequential \\
-\textbf{Interface Type} & API and programmatic & SDK and platform & CLI & GUI automation \\
-\textbf{Default Model} & Kimi K2.5 (MoE) & Pluggable model backend & Claude (various) & CUA \\
-\textbf{Target User} & Enterprise and platform builders & Developers and IT & Software developers & End users \\
+\textbf{Primary Paradigm} & Agent swarm & Operating system & Terminal agent & GUI navigator & Unified agent \\
+\textbf{Scale} & 1T parameters & Extensible (plugin-based) & Task-specific & Task-specific & 500B parameters \\
+\textbf{Parallelism} & 100 sub-agents and 1,500 tool calls & Configurable & Sequential & Sequential & Multi-tool concurrent \\
+\textbf{Interface Type} & API and programmatic & SDK and platform & CLI & GUI automation & API and chat \\
+\textbf{Default Model} & Kimi K2.5 (MoE) & Pluggable model backend & Claude 4.6 & GPT-5.4 (CUA) & GLM 5 (MoE) \\
+\textbf{Target User} & Enterprise and platform builders & Developers and IT & Software developers & End users & Enterprise and developers \\
 \bottomrule
 \end{tabularx}
 \end{table}

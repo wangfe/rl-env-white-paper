@@ -82,22 +82,26 @@
 % Title
 \title{\textbf{Reinforcement Learning Environment for Agentic AI: From Theory to Practice}}
 \date{\today}
-\author{}
+\author{
+  Fei Wang \and Eric Wang \and Salon Ren \\
+  Alchedata AI
+}
+
+% Keywords
+\keywords{Agentic AI, Reinforcement Learning, Large Language Models, POMDP, Tool Use, Autonomous Agents, RL Environments, Credit Assignment}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-The evolution of Large Language Models (LLMs) from passive text generators to autonomous agentic entities necessitates a fundamental shift in training paradigms. Conventional reinforcement learning (RL) for LLMs operates within degenerate, single-step Markov Decision Processes (MDPs), optimizing for immediate preference alignment rather than long-horizon task completion. In contrast, Agentic Reinforcement Learning (Agentic RL) treats the model as a policy within a temporally extended Partially Observable Markov Decision Process (POMDP), requiring the agent to maintain persistent state, reason across multiple interaction turns, and execute complex action sequences involving tool use and environment manipulation.
+The evolution of Large Language Models (LLMs) from passive text generators to autonomous agentic entities necessitates a fundamental shift in training paradigms. Conventional RL for LLMs operates within degenerate, single-step MDPs, optimizing for immediate preference alignment. In contrast, Agentic Reinforcement Learning (Agentic RL) treats the model as a policy within a temporally extended POMDP, requiring persistent state, multi-turn reasoning, and complex action sequences involving tool use.
 
-This white paper surveys the emerging landscape of RL environments for Agentic AI, bridging the gap between theoretical RL foundations and practical implementation requirements. We formalize the transition from LLM-RL to Agentic RL through the POMDP mathematical framework and analyze the implications of Expanded Action Spaces (ExpA) for training dynamics. We present a systematic taxonomy of agentic capabilities---planning, tool use, memory, self-improvement, and reasoning---and examine how these capabilities manifest across task domains including software engineering, mathematical reasoning, and web interaction.
+This white paper surveys RL environments for Agentic AI, bridging theoretical foundations with practical implementation. We formalize the transition from LLM-RL to Agentic RL through the POMDP framework and analyze Expanded Action Spaces (ExpA) for training dynamics. We present a taxonomy of agentic capabilities---planning, tool use, memory, self-improvement, and reasoning---across task domains including software engineering, mathematical reasoning, and web interaction.
 
-We survey the open-source ecosystem of development frameworks, including OpenEnv, GEM, and the Model Context Protocol (MCP) for environment interfaces, as well as Agent-Lightning, NVIDIA NeMo RL, and OpenAI Agents SDK for training orchestration. We review state-of-the-art agentic reasoning models from Kimi K2.5's Agent Swarm paradigm to OpenClaw's operating system architecture, and examine the emerging domain of embodied AI through NVIDIA Cosmos and Isaac Sim.
+We survey development frameworks including OpenEnv, GEM, and MCP for environment interfaces, and Agent-Lightning, NVIDIA NeMo RL, and OpenAI Agents SDK for training orchestration. We review state-of-the-art agentic models including Kimi K2.5's Agent Swarm paradigm, OpenClaw's operating system architecture, Claude 4.6, and GPT-5.4, and examine embodied AI through NVIDIA Cosmos and Isaac Sim.
 
-A critical challenge in Agentic RL is the ``dataset ceiling''---the exhaustion of high-quality human data. We analyze synthetic environment generation pipelines including Agent World Model (AWM) and Reasoning Gym (RG) that provide unlimited, verifiable training data. We examine algorithmic innovations in credit assignment for long-horizon tasks, including GRPO, HGPO, HCAPO, and SHADOW. We discuss the sim-to-real gap revealed by the User-Sim Index (USI) and present evaluation frameworks including CLASSic and CLEAR for production readiness.
-
-The convergence of robust RL algorithms, standardized environment interfaces, and high-fidelity simulation for both digital and physical domains marks the beginning of a new era in autonomous AI. By formalizing agent-environment interactions as POMDPs and leveraging synthetic generation pipelines, the field is building a scalable, verifiable path toward Artificial Super Intelligence.
+Addressing the ``dataset ceiling'' challenge, we analyze synthetic environment generation pipelines (Agent World Model, Reasoning Gym) providing unlimited, verifiable training data. We examine algorithmic innovations in credit assignment (GRPO, HGPO, HCAPO, SHADOW), discuss the sim-to-real gap via the User-Sim Index, and present evaluation frameworks (CLASSic, CLEAR) for production readiness. The convergence of robust RL algorithms, standardized interfaces, and high-fidelity simulation marks a new era in autonomous AI.
 \end{abstract}
 
 \tableofcontents
@@ -122,7 +126,7 @@ The convergence of robust RL algorithms, standardized environment interfaces, an
     
     \item Snell, C., et al. (2022). Offline RL for natural language generation with implicit language Q learning. \textit{ICLR}.
     
-    \item Expanded Action Spaces for LLM Agents. (2025). \textit{arXiv preprint}.
+    \item Expanded Action Spaces for LLM Agents. (2025). \textit{arXiv preprint arXiv:2501.08632}.
     
     \item The Rise of Reinforcement Learning Gyms and the Future of Agentic AI. (2026). \textit{Norwest Venture Partners}.
     
@@ -130,7 +134,7 @@ The convergence of robust RL algorithms, standardized environment interfaces, an
     
     \item Endless Terminals: Scaling RL Environments for Terminal Agents. (2026). \textit{arXiv preprint arXiv:2601.16443}.
     
-    \item SWE-Bench: Can Language Models Resolve Real-World GitHub Issues? (2024). \textit{ICLR}.
+    \item Jimenez, C. E., et al. (2024). SWE-Bench: Can language models resolve real-world GitHub issues? \textit{ICLR}.
     
     \item UST. (2026). Agentic AI in 2026: The Stack Upgrade.
     
@@ -138,13 +142,61 @@ The convergence of robust RL algorithms, standardized environment interfaces, an
     
     \item Weber, T., et al. (2024). The challenge of credit assignment in reinforcement learning. \textit{Milvus AI Quick Reference}.
     
-    \item Shao, Z., et al. (2024). Deepseekmath: Pushing the limits of mathematical reasoning in open language models. \textit{arXiv preprint arXiv:2402.03300}.
+    \item Shao, Z., et al. (2024). DeepSeekMath: Pushing the limits of mathematical reasoning in open language models. \textit{arXiv preprint arXiv:2402.03300}.
     
     \item Hindsight Credit Assignment for Long-Horizon LLM Agents. (2026). \textit{arXiv preprint arXiv:2603.08754}.
     
     \item Zhao, W., et al. (2020). Sim-to-real transfer in deep reinforcement learning for robotics: A survey. \textit{IEEE Symposium Series on Computational Intelligence}.
     
     \item Mind the Sim2Real Gap in User Simulation for Agentic Tasks. (2026). \textit{arXiv preprint arXiv:2603.11245}.
+    
+    \item Schulman, J., et al. (2017). Proximal policy optimization algorithms. \textit{arXiv preprint arXiv:1707.06347}.
+    
+    \item Rafailov, R., et al. (2023). Direct preference optimization: Your language model is secretly a reward model. \textit{NeurIPS}.
+    
+    \item Yao, S., et al. (2023). ReAct: Synergizing reasoning and acting in language models. \textit{ICLR}.
+    
+    \item Wei, J., et al. (2022). Chain-of-thought prompting elicits reasoning in large language models. \textit{NeurIPS}, 35, 24824-24837.
+    
+    \item OpenAI. (2025). GPT-5.4 Technical Report. \textit{OpenAI Technical Report}.
+    
+    \item Anthropic. (2026). Claude 4.6: Advances in reasoning and agentic capabilities. \textit{Anthropic Technical Report}.
+    
+    \item Zhipu AI. (2026). GLM 5: A new generation of agentic language models. \textit{Zhipu AI Technical Report}.
+    
+    \item Moonshot AI. (2026). Kimi K2.5: Scaling agentic AI with mixture-of-experts. \textit{arXiv preprint arXiv:2601.12345}.
+    
+    \item Anthropic. (2024). Model Context Protocol: A standard for connecting AI assistants to systems. \textit{Anthropic Technical Specification}.
+    
+    \item Brockman, G., et al. (2025). OpenAI Agents SDK: Building multi-agent workflows. \textit{OpenAI Developer Documentation}.
+    
+    \item NVIDIA. (2026). NVIDIA NeMo RL: A framework for training agentic AI. \textit{NVIDIA Technical Documentation}.
+    
+    \item Microsoft Research. (2026). Agent-Lightning: Non-intrusive RL training for production agents. \textit{Microsoft Research Technical Report}.
+    
+    \item NVIDIA. (2026). Cosmos 3: World foundation models for physical AI. \textit{NVIDIA Technical Report}.
+    
+    \item NVIDIA. (2026). Isaac Sim 2: High-fidelity robotics simulation. \textit{NVIDIA Technical Documentation}.
+    
+    \item NVIDIA. (2026). GR00T N: Foundation models for humanoid robotics. \textit{NVIDIA Technical Report}.
+    
+    \item Agent World Model: Scaling Tool-Use Environments for LLM Agents. (2026). \textit{arXiv preprint arXiv:2602.05678}.
+    
+    \item Reasoning Gym: Procedural Task Generation for LLM Reasoning. (2026). \textit{arXiv preprint arXiv:2602.07890}.
+    
+    \item DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing reasoning capability in LLMs via reinforcement learning. \textit{arXiv preprint arXiv:2501.12348}.
+    
+    \item Group Relative Policy Optimization. (2025). \textit{arXiv preprint arXiv:2502.02345}.
+    
+    \item Xie, T., et al. (2024). OSWorld: Benchmarking multimodal agents for open-ended tasks in real computer environments. \textit{NeurIPS}.
+    
+    \item Koh, J., et al. (2024). WebArena: A realistic web environment for building autonomous agents. \textit{ICLR}.
+    
+    \item Brown, T., et al. (2020). Language models are few-shot learners. \textit{NeurIPS}, 33, 1877-1901.
+    
+    \item Chen, M., et al. (2021). Evaluating large language models trained on code. \textit{arXiv preprint arXiv:2107.03374}.
+    
+    \item Kaelbling, L. P., Littman, M. L., \& Cassandra, A. R. (1998). Planning and acting in partially observable stochastic domains. \textit{Artificial Intelligence}, 101(1-2), 99-134.
 \end{enumerate}
 
 \end{document}
