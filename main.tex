@@ -98,16 +98,14 @@
 \maketitle
 
 % Keywords
-\keywords{Agentic AI, Reinforcement Learning, Large Language Models, POMDP, Tool Use, Autonomous Agents, RL Environments, Credit Assignment}
+\keywords{Agentic AI, Reinforcement Learning Environments, RL Gyms, Environment Design, Synthetic Environments, Sim-to-Real Transfer, POMDP, Environment Infrastructure}
 
 \begin{abstract}
-The evolution of Large Language Models (LLMs) from passive text generators to autonomous agentic entities necessitates a fundamental shift in training paradigms. Conventional RL for LLMs operates within degenerate, single-step MDPs, optimizing for immediate preference alignment. In contrast, Agentic Reinforcement Learning (Agentic RL) treats the model as a policy within a temporally extended POMDP, requiring persistent state, multi-turn reasoning, and complex action sequences involving tool use.
+The emergence of Agentic Reinforcement Learning (Agentic RL) has created an urgent need for sophisticated training environments that go beyond traditional RL benchmarks. While conventional LLM-RL operates within single-step MDPs, Agentic RL requires environments supporting multi-turn interactions, tool integration, and verifiable reward signals. This white paper argues that \textbf{RL environments are the foundational infrastructure for agentic AI}---the critical layer that determines what capabilities agents can learn and how reliably they transfer to deployment.
 
-This white paper surveys RL environments for Agentic AI, bridging theoretical foundations with practical implementation. We formalize the transition from LLM-RL to Agentic RL through the POMDP framework and analyze Expanded Action Spaces (ExpA) for training dynamics. We present a taxonomy of agentic capabilities---planning, tool use, memory, self-improvement, and reasoning---across task domains including software engineering, mathematical reasoning, and web interaction.
+We present a comprehensive analysis of the environment layer, organized around three core questions: (1) \textbf{Environment Design}---what makes an effective Agentic RL environment, including observation spaces, action interfaces, and reward mechanisms; (2) \textbf{Environment Infrastructure}---the frameworks, protocols, and tools for building and deploying environments at scale; and (3) \textbf{Environment Quality}---methodologies for evaluating environment fidelity, the sim-to-real gap, and production readiness.
 
-We survey development frameworks including OpenEnv, GEM, and MCP for environment interfaces, and Agent-Lightning, NVIDIA NeMo RL, and OpenAI Agents SDK for training orchestration. We review state-of-the-art agentic models including Kimi K2.5's Agent Swarm paradigm, OpenClaw's operating system architecture, Claude 4.6, and GPT-5.4, and examine embodied AI through NVIDIA Cosmos and Isaac Sim.
-
-Addressing the ``dataset ceiling'' challenge, we analyze synthetic environment generation pipelines (Agent World Model, Reasoning Gym) providing unlimited, verifiable training data. We examine algorithmic innovations in credit assignment (GRPO, HGPO, HCAPO, SHADOW), discuss the sim-to-real gap via the User-Sim Index, and present evaluation frameworks (CLASSic, CLEAR) for production readiness. The convergence of robust RL algorithms, standardized interfaces, and high-fidelity simulation marks a new era in autonomous AI.
+We survey the ecosystem of environment frameworks (OpenEnv, GEM, MCP), synthetic environment generation pipelines (Agent World Model, Reasoning Gym), and specialized environments for embodied AI (NVIDIA Cosmos, Isaac Sim). We introduce the Environment Quality Framework (EQF) for systematic environment evaluation and analyze the critical sim-to-real gap through the User-Sim Index. Finally, we present a research agenda for next-generation RL environments that will enable the transition from research prototypes to production-ready agentic systems.
 \end{abstract}
 
 \tableofcontents

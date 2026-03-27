@@ -3,51 +3,49 @@
 
 \section{Introduction}
 
-The rapid convergence of Large Language Models (LLMs) and Reinforcement Learning (RL) has precipitated a fundamental transformation in how AI systems are conceived, moving from "answering" to "acting." Traditionally, LLMs were treated as passive text emitters conditional generators optimized for single-turn output alignment [1]. However, the emergence of Agentic Reinforcement Learning (Agentic RL) marks a paradigm shift where models are reframed as autonomous decision-makers embedded in complex, dynamic worlds. These systems possess "agency": the capacity to autonomously perceive, plan, reason, and adapt strategies over extended sequences of interactions to achieve cumulative objectives [2].
+The rapid convergence of Large Language Models (LLMs) and Reinforcement Learning (RL) has precipitated a fundamental transformation in how AI systems are conceived, moving from "answering" to "acting." However, this transformation exposes a critical infrastructure gap: while model capabilities have advanced dramatically, the \textbf{environments} in which these models learn to act remain underdeveloped. This white paper argues that RL environments---not just algorithms or model architectures---are the foundational bottleneck and opportunity in Agentic AI.
 
-\subsection{From Static Models to Agentic Systems}
+\subsection{The Environment-Centric Perspective}
 
-The evolution of LLMs from passive text generators to autonomous agentic entities necessitates a corresponding shift in training paradigms. Conventional LLM-RL, typically instantiated as Preference-Based Reinforcement Fine-Tuning (PBRFT), operates within a degenerate, single-step Markov Decision Process (MDP) with a horizon length $H=1$ [3]. In this "open-loop" setting, the environment state is static (the prompt), and the action space is restricted to vocabulary tokens. The reward signal derives from subjective human preferences, optimizing for alignment rather than task completion.
+Traditional surveys of Agentic RL focus on model capabilities, algorithms, and applications. We take a different approach: we center the \textbf{environment layer} as the primary determinant of what agents can learn and how reliably they transfer to deployment. This perspective is motivated by a simple observation: the most sophisticated policy architecture cannot compensate for an environment that fails to capture the essential dynamics of real-world tasks.
 
-Agentic RL, by contrast, formalizes the interaction as a temporally extended Partially Observable Markov Decision Process (POMDP), requiring the agent to maintain persistent state and reasoning across multiple turns ($H \gg 1$) [4]. The agent receives an observation at each step, and its internal state encompasses the full history of prior actions and observations. The objective shifts from maximizing immediate preference scores to maximizing cumulative discounted reward over a long-term horizon, fundamentally changing both the mathematical framework and the practical requirements for training.
+Consider the analogy to software development. Compilers, debuggers, and testing frameworks form the infrastructure layer that enables reliable software engineering. Similarly, RL environments form the infrastructure layer for training autonomous agents. Just as a compiler that fails to catch memory errors leads to unreliable software, an environment that fails to model edge cases leads to unreliable agents.
 
-\subsection{The Theory-Practice Gap in Agentic RL}
+\subsection{Why Environments Matter More Than Ever}
 
-While the theoretical foundations of RL have been well-established for decades [5], the application of these principles to LLM-based agents reveals a significant gap between theory and practice. Traditional RL research has focused on environments with low-dimensional state spaces, discrete action spaces, and dense reward signals. Agentic RL, however, must contend with high-dimensional textual observations, hybrid action spaces combining language generation with tool invocation, and sparse rewards that may only materialize after extended interaction sequences [6].
+The shift from single-turn LLM interactions to multi-turn agentic behavior fundamentally changes environment requirements:
 
-Recent theory suggests decoupling environment interactions from language by internalizing them in an Expanded Action space (ExpA) beyond the standard vocabulary [7]. This architectural innovation allows a clean separation between language-based reasoning and direct environment manipulation. In the default language environment, the model reasons via tokens, but it can trigger "routing actions" to activate specific external environments such as calculators, browsers, or code interpreters switching its mode of interaction to environment-specific actions. This expansion of the action space from $\mathcal{V}$ (vocabulary) to $\mathcal{V} \cup \mathcal{T}$ (vocabulary plus tool calls) dramatically increases the expressiveness of agent policies while complicating the credit assignment problem.
+\textbf{From Static to Dynamic.} Conventional LLM-RL operates within a degenerate, single-step MDP where the environment state is static (the prompt). Agentic RL requires environments with dynamic state evolution, where agent actions have persistent consequences across extended interaction horizons.
 
-\subsection{The Critical Role of RL Environments}
+\textbf{From Subjective to Objective Rewards.} Traditional RLHF optimizes for subjective human preferences. Agentic RL requires environments with \textit{verifiable} reward signals---objective, automatable criteria that determine task success without human judgment.
 
-Central to the Agentic RL transformation is the development of Reinforcement Learning Gyms interactive, simulated environments that serve as essential training grounds where models can experiment, fail safely, and learn through trial and error [8]. Much like Electronic Design Automation (EDA) serves as the infrastructure for silicon development, RL Gyms provide the "verification layer" for AI agents, translating human intent into measurable, executable behavior at scale [9].
+\textbf{From Isolated to Integrated.} Agents must interact with diverse external systems: code interpreters, web browsers, databases, and APIs. Environments must provide standardized interfaces for tool integration while maintaining safety and reproducibility.
 
-These environments must satisfy several critical requirements that distinguish them from traditional RL benchmarks. First, they must support long-horizon interactions, allowing agents to execute sequences of dozens or hundreds of steps to accomplish complex objectives [10]. Second, they must provide verifiable reward signals objective, automatable evaluation criteria that can determine whether a task has been completed successfully without human judgment [11]. Third, they must expose rich observation spaces, including structured data, visual inputs, and execution feedback that enables grounded reasoning.
+\subsection{The Environment Quality Problem}
 
-The industry shift in 2026 from raw intelligence scores to "agency"the ability to persist toward a goal using tools has made these gyms the primary vehicle for instilling the reliability, groundedness, and multi-step planning required for real-world deployment [12]. Without high-fidelity simulation environments, agents cannot develop the robust behavioral patterns necessary for deployment in safety-critical applications.
+A critical challenge that has received insufficient attention is \textbf{environment quality}. Not all training environments are created equal. We identify three dimensions of environment quality:
 
-\subsection{Key Challenges in Agentic RL Training}
+\begin{enumerate}
+    \item \textbf{Fidelity}: How accurately does the environment model real-world dynamics?
+    \item \textbf{Verifiability}: Can success be objectively and automatically determined?
+    \item \textbf{Diversity}: Does the environment provide sufficient variation for generalization?
+\end{enumerate}
 
-Training agents within these environments presents several fundamental challenges that this paper addresses in detail.
-
-\textbf{Action Space Complexity.} The expanded action spaces of agentic systemscombining language generation, tool invocation, and environment manipulationcreate significant exploration challenges. Agents must learn not only what actions to take but also when to switch between different modes of interaction [13].
-
-\textbf{Credit Assignment.} Long-horizon tasks suffer from sparse rewards, making it difficult to attribute success to specific intermediate actions [14]. When an agent executes a 50-step sequence to complete a software engineering task, determining which specific code edits or tool calls contributed to the final outcome remains a fundamental algorithmic challenge. Recent advances such as Group Relative Policy Optimization (GRPO) [15] and Hindsight Credit Assignment (HCAPO) [16] address this challenge by comparing trajectories within sample groups and leveraging post-hoc reasoning, but significant open problems remain.
-
-\textbf{The Sim-to-Real Gap.} A critical "reality gap" exists between simulated training environments and real-world deployment [17]. Research using the User-Sim Index (USI) reveals that LLM-based user simulators often create an "easy mode" for agents, exhibiting behavioral gaps (excessive cooperativeness, "front-loading" of information) and evaluative gaps (uniformly positive feedback versus nuanced human judgment) [18]. Bridging this gap requires environments that accurately model the stochasticity, partial observability, and adversarial conditions of real-world deployment.
+Research using the User-Sim Index (USI) reveals that LLM-based user simulators often create an "easy mode" for agents, exhibiting behavioral gaps (excessive cooperativeness, information front-loading) and evaluative gaps (uniformly positive feedback). This sim-to-real gap represents a fundamental challenge: agents trained on low-fidelity environments may appear competent during training but fail catastrophically in deployment.
 
 \subsection{Contributions and Paper Structure}
 
-This paper provides a comprehensive survey of the emerging landscape of RL environments for Agentic AI, bridging the gap between theoretical RL foundations and practical implementation requirements. Our contributions are threefold:
+This white paper provides a comprehensive analysis of the environment layer for Agentic RL. Our contributions are organized around three core questions:
 
 \begin{enumerate}
-    \item \textbf{Theoretical Framework.} We formalize the transition from LLM-RL to Agentic RL, establishing the POMDP mathematical framework and analyzing the implications of expanded action spaces for training dynamics.
-
-    \item \textbf{Taxonomy and Architecture.} We present a systematic taxonomy of agentic capabilities and environment architectures, examining standardized frameworks including OpenEnv, GEM, and the Model Context Protocol (MCP).
-
-    \item \textbf{Synthesis of Advances.} We review algorithmic innovations in credit assignment, synthetic environment generation (Agent World Model, Reasoning Gym), and sim-to-real transfer, identifying critical open problems and future research directions.
-
+    \item \textbf{Environment Design} (Sections 2-3): What makes an effective Agentic RL environment? We derive design principles from POMDP theory and analyze environment requirements across capability dimensions.
+    
+    \item \textbf{Environment Infrastructure} (Sections 4-7): What frameworks, protocols, and tools exist for building and deploying environments? We survey the ecosystem of environment frameworks, synthetic generation pipelines, and specialized environments for embodied AI.
+    
+    \item \textbf{Environment Quality} (Sections 8-10): How do we evaluate and improve environment fidelity? We analyze the sim-to-real gap, algorithmic considerations for environment-aware training, and production readiness frameworks.
 \end{enumerate}
-The remainder of this paper is organized as follows. Section 2 establishes the theoretical framework, contrasting MDP and POMDP formalisms and analyzing expanded action spaces. Section 3 presents a taxonomy of agentic capabilities and task domains. Section 4 surveys major packages, protocols, and development frameworks. Section 5 reviews state-of-the-art agentic reasoning models. Sections 6 and 7 address embodied AI and synthetic environment generation. Section 8 examines algorithmic advances in credit assignment. Section 9 discusses the sim-to-real gap. Section 10 covers evaluation and production readiness. Section 11 concludes with perspectives on the path toward Artificial Super Intelligence.
+
+Section 11 concludes with a research agenda for next-generation RL environments. We argue that the path to production-ready agentic systems runs through the environment layer---and that investment in environment infrastructure will yield compounding returns across the entire Agentic AI stack.
 
 \section{ Theoretical Framework: From LLM-RL to Agentic RL}
 
